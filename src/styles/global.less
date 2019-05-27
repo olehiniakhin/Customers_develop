@@ -1,0 +1,49 @@
+@fontName: sans-serif;
+
+body {
+  font-family: @fontName;
+  color: rgb(5, 16, 57);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: @fontName;
+  font-weight: 700;
+}
+
+.ui {
+  &.button {
+    font-family: @fontName;
+    font-weight: normal;
+  }
+
+  &.page.dimmer {
+    display: flex !important;
+  }
+}
+
+.text-night {
+  color: rgb(5, 16, 57);
+}
+
+.light, .thin {
+  font-weight: 300;
+}
+
+.text-smoke {
+  color: rgb(130, 135, 156);
+}
+
+.medium {
+  font-weight: 500;
+}
+
+.shy, h6 {
+  font-size: 16px;
+  line-height: 1.5;
+
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+  }
+
+}

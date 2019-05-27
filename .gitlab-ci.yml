@@ -1,0 +1,64 @@
+image: node:8.11.3
+
+before_script:
+  - yarn global add netlify-cli@1.2.3
+  - yarn install
+
+cache:
+  paths:
+  - node_modules/
+
+stages:
+  - deploy_dev
+  - deploy_qual
+  - deploy_prod
+  - deployBranche
+
+deploy_dev:
+  stage: deploy_dev
+  script:
+    - echo "Deploy to Dev server"
+    - ./createEnv.sh $REACT_APP_ID_DEV $REACT_APP_SERVER_URL_DEV $REACT_APP_JAVASCRIPT_KEY_DEV $REACT_APP_CUSTOMER_FRONT_DEV $REACT_APP_WSS_SERVER_URL_DEV
+    - yarn build
+    - yarn test
+    - netlify deploy  --access-token 1dc086972b99af064afae2354c3f8ce8a1e749ecf286241467d9a99b0cb4dbcc --site-id 14442d4f-9d2c-4def-92cd-50dc675297b2 --path ./build
+  only:
+  - dev
+
+deploy_qual:
+  stage: deploy_qual
+  script:
+    - echo "Deploy to Qual server"
+
+    - ./createEnv.sh $REACT_APP_ID_QUAL $REACT_APP_SERVER_URL_QUAL $REACT_APP_JAVASCRIPT_KEY_QUAL $REACT_APP_CUSTOMER_FRONT_QUAL $REACT_APP_WSS_SERVER_URL_QUAL
+    - yarn build
+    - yarn test
+    - netlify deploy  --access-token 1dc086972b99af064afae2354c3f8ce8a1e749ecf286241467d9a99b0cb4dbcc --site-id 04b086ad-917f-4a86-8ab1-842beec5adf3 --path ./build
+
+  only:
+  - qual
+  when: manual
+
+
+deploy_prod:
+  stage: deploy_prod
+  script:
+    - echo "Deploy to Prod server"
+    - ./createEnv.sh $REACT_APP_ID_PROD $REACT_APP_SERVER_URL_PROD $REACT_APP_JAVASCRIPT_KEY_PROD $REACT_APP_CUSTOMER_FRONT_PROD $REACT_APP_WSS_SERVER_URL_PROD
+    - yarn build
+    - yarn test
+    - netlify deploy  --access-token 1dc086972b99af064afae2354c3f8ce8a1e749ecf286241467d9a99b0cb4dbcc --site-id 9a90a20e-3c3b-40ed-aa29-eda010be8e1e --path ./build
+  
+  only:
+  - master
+  when: manual
+
+deployBranche:
+  stage: deployBranche
+  script:
+    - ./createEnv.sh $REACT_APP_ID_DEV $REACT_APP_SERVER_URL_DEV $REACT_APP_JAVASCRIPT_KEY_DEV $REACT_APP_CUSTOMER_FRONT_DEV $REACT_APP_WSS_SERVER_URL_DEV
+    - yarn build
+    - yarn test
+    - netlify create  --access-token 1dc086972b99af064afae2354c3f8ce8a1e749ecf286241467d9a99b0cb4dbcc
+    - netlify deploy  --access-token 1dc086972b99af064afae2354c3f8ce8a1e749ecf286241467d9a99b0cb4dbcc --path ./build
+  when: manual

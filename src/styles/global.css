@@ -1,0 +1,44 @@
+body {
+  font-family: sans-serif;
+  color: #051039;
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: sans-serif;
+  font-weight: 700;
+}
+.ui.button {
+  font-family: sans-serif;
+  font-weight: normal;
+}
+.ui.page.dimmer {
+  display: flex !important;
+}
+.text-night {
+  color: #051039;
+}
+.light,
+.thin {
+  font-weight: 300;
+}
+.text-smoke {
+  color: #82879c;
+}
+.medium {
+  font-weight: 500;
+}
+.shy,
+h6 {
+  font-size: 16px;
+  line-height: 1.5;
+}
+@media screen and (max-width: 767px) {
+  .shy,
+  h6 {
+    font-size: 14px;
+  }
+}

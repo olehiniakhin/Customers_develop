@@ -1,0 +1,10 @@
+.ui.labeled.icon.menu.bottom-menu {
+  
+}
+
+/* @media screen and (min-height: 735px) { */
+  .ui.labeled.icon.menu.bottom-menu {
+    position: fixed;
+    bottom: 2em;
+  }
+/* } */
